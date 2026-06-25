@@ -1,0 +1,37 @@
+name: rl-affine-elicit
+title: "Small-Scale GRPO Acts as a Global Logit Recalibration, Not a Capability Change: An Affine-Transform Decomposition with No Accuracy Gain to Recover"
+question: >
+  If outcome-only RL mostly elicits what the base model already computes, its
+  effect on the answer distribution might be reproducible by a single global
+  affine transform of the base logits (a scalar temperature plus a per-option
+  bias). We extract the four-option MMLU answer logits of Qwen2.5-1.5B-Instruct
+  before and after outcome-only GRPO, fit a global affine map from base to RL
+  logits, and ask how much of RL's effect and accuracy a global transform
+  recovers, reporting a scalar elicitation fraction.
+stage: write
+status: >
+  Real run complete (RTX 5090, reusing the base and RL checkpoints from
+  rl-selfcot-causal). GRPO produced no significant accuracy gain (base 0.378,
+  RL 0.382, gain +0.004), so the elicitation fraction is ill-defined. The
+  mechanistic result is robust: a global affine transform explains 99.3% of the
+  RL option-logit variance (temperature 0.989), versus 98.5% with no transform
+  and 99.3% with a per-option bias alone, so GRPO's small effect is almost
+  entirely a per-option bias shift (largest on option A), a global
+  recalibration rather than an input-dependent capability change. A global
+  affine fit toward correctness recovers a +0.011 accuracy lift that already
+  exceeds GRPO's own, and a full linear map reaches +0.026.
+tags:
+  - elicitation
+  - reinforcement-learning
+  - outcome-reward
+  - calibration
+  - logit-transform
+  - interpretability
+  - ai-safety
+collaborators:
+  - "Ephraiem Sarabamoun"
+links:
+  code_local: "~/projects/rl-affine-elicit"
+  sibling_study: "~/projects/rl-selfcot-causal"
+  compute: "RTX 5090, torch 2.12 cu130; Qwen2.5-1.5B-Instruct base + outcome-only GRPO"
+references_bib: references.bib

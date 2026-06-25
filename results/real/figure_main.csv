@@ -1,0 +1,5 @@
+metric,value,n
+base_acc,0.378000,1000
+rl_acc,0.382000,1000
+affine_to_gold_acc,0.389000,1000
+full_linear_gold_acc,0.404000,1000

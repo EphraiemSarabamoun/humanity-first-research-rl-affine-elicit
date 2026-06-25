@@ -1,0 +1,4 @@
+metric,value,n
+affine_to_rl_R2,0.993341,1000
+identity_R2,0.985400,1000
+bias_only_R2,0.993200,1000

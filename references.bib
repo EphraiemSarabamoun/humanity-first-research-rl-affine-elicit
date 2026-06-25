@@ -1,0 +1,111 @@
+@article{zhou2023lima,
+  title={LIMA: Less Is More for Alignment},
+  author={Zhou, Chunting and Liu, Pengfei and Xu, Puxin and Iyer, Srinivasan and Sun, Jiao and Mao, Yuning and Ma, Xuezhe and Efrat, Avia and Yu, Ping and Yu, Lili and others},
+  eprint={2305.11206}, archivePrefix={arXiv}, year={2023},
+  annote={The superficial-alignment hypothesis that post-training mostly surfaces base capability; the elicitation view our affine-transform test operationalizes.}
+}
+
+@article{lin2023unlocking,
+  title={The Unlocking Spell on Base LLMs: Rethinking Alignment via In-Context Learning},
+  author={Lin, Bill Yuchen and Ravichander, Abhilasha and Lu, Ximing and Dziri, Nouha and Sclar, Melanie and Chandu, Khyathi and Bhagavatula, Chandra and Choi, Yejin},
+  eprint={2312.01552}, archivePrefix={arXiv}, year={2023},
+  annote={Finds tuning mainly shifts output-distribution style; predicts RL's effect should be a low-complexity transform of the base distribution.}
+}
+
+@article{guo2017calibration,
+  title={On Calibration of Modern Neural Networks},
+  author={Guo, Chuan and Pleiss, Geoff and Sun, Yu and Weinberger, Kilian Q},
+  eprint={1706.04599}, archivePrefix={arXiv}, year={2017},
+  annote={Temperature scaling, the canonical single-scalar logit transform; our global affine map is temperature scaling plus a per-class bias.}
+}
+
+@article{shao2024deepseekmath,
+  title={DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models},
+  author={Shao, Zhihong and Wang, Peiyi and Zhu, Qihao and Xu, Runxin and Song, Junxiao and Bi, Xiao and Zhang, Haowei and Zhang, Mingchuan and Li, YK and Wu, Y and others},
+  eprint={2402.03300}, archivePrefix={arXiv}, year={2024},
+  annote={Introduces GRPO, the outcome-only RL algorithm whose logit effect we decompose.}
+}
+
+@article{guo2025deepseekr1,
+  title={DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning},
+  author={Guo, Daya and Yang, Dejian and Zhang, Haowei and Song, Junxiao and Zhang, Ruoyu and Xu, Runxin and Zhu, Qihao and Ma, Shirong and Wang, Peiyi and Bi, Xiao and others},
+  eprint={2501.12948}, archivePrefix={arXiv}, year={2025},
+  annote={Large-scale outcome-only RL that does change capability; the regime our small-scale, no-gain result is explicitly not in.}
+}
+
+@article{ouyang2022instructgpt,
+  title={Training language models to follow instructions with human feedback},
+  author={Ouyang, Long and Wu, Jeffrey and Jiang, Xu and Almeida, Diogo and Wainwright, Carroll and Mishkin, Pamela and Zhang, Chong and Agarwal, Sandhini and Slama, Katarina and Ray, Alex and others},
+  eprint={2203.02155}, archivePrefix={arXiv}, year={2022},
+  annote={The canonical outcome-reward post-training pipeline whose mechanism is in question.}
+}
+
+@article{bai2022hh,
+  title={Training a Helpful and Harmless Assistant with Reinforcement Learning from Human Feedback},
+  author={Bai, Yuntao and Jones, Andy and Ndousse, Kamal and Askell, Amanda and Chen, Anna and DasSarma, Nova and Drain, Dawn and Fort, Stanislav and Ganguli, Deep and Henighan, Tom and others},
+  eprint={2204.05862}, archivePrefix={arXiv}, year={2022},
+  annote={Establishes RLHF as standard post-training; context for studying its effect on the output distribution.}
+}
+
+@article{rafailov2023dpo,
+  title={Direct Preference Optimization: Your Language Model is Secretly a Reward Model},
+  author={Rafailov, Rafael and Sharma, Archit and Mitchell, Eric and Ermon, Stefano and Manning, Christopher D and Finn, Chelsea},
+  eprint={2305.18290}, archivePrefix={arXiv}, year={2023},
+  annote={Casts preference tuning as a closed-form reweighting of the base policy; conceptually a low-complexity transform like the one we fit.}
+}
+
+@article{kadavath2022know,
+  title={Language Models (Mostly) Know What They Know},
+  author={Kadavath, Saurav and Conerly, Tom and Askell, Amanda and Henighan, Tom and Drain, Dawn and Perez, Ethan and Schiefer, Nicholas and Hatfield-Dodds, Zac and DasSarma, Nova and others},
+  eprint={2207.05221}, archivePrefix={arXiv}, year={2022},
+  annote={Base models carry calibrated answer knowledge; supports that a recalibration could surface correctness already present.}
+}
+
+@article{burns2022ccs,
+  title={Discovering Latent Knowledge in Language Models Without Supervision},
+  author={Burns, Collin and Ye, Haotian and Klein, Dan and Steinhardt, Jacob},
+  eprint={2212.03827}, archivePrefix={arXiv}, year={2022},
+  annote={Answer-relevant structure is recoverable from base models; the elicitation premise our transform tests at the logit level.}
+}
+
+@article{wei2022cot,
+  title={Chain-of-Thought Prompting Elicits Reasoning in Large Language Models},
+  author={Wei, Jason and Wang, Xuezhi and Schuurmans, Dale and Bosma, Maarten and Ichter, Brian and Xia, Fei and Chi, Ed and Le, Quoc and Zhou, Denny},
+  eprint={2201.11903}, archivePrefix={arXiv}, year={2022},
+  annote={Establishes the multiple-choice answering format whose option logits we transform.}
+}
+
+@article{lightman2023letsverify,
+  title={Let's Verify Step by Step},
+  author={Lightman, Hunter and Kosaraju, Vineet and Burda, Yura and Edwards, Harri and Baker, Bowen and Lee, Teddy and Leike, Jan and Schulman, John and Sutskever, Ilya and Cobbe, Karl},
+  eprint={2305.20050}, archivePrefix={arXiv}, year={2023},
+  annote={Process versus outcome reward; frames what an outcome-only signal can and cannot change.}
+}
+
+@article{cobbe2021gsm8k,
+  title={Training Verifiers to Solve Math Word Problems},
+  author={Cobbe, Karl and Kosaraju, Vineet and Bavarian, Mohammad and Chen, Mark and Jun, Heewoo and Kaiser, Lukasz and Plappert, Matthias and Tworek, Jerry and Hilton, Jacob and Nakano, Reiichiro and others},
+  eprint={2110.14168}, archivePrefix={arXiv}, year={2021},
+  annote={Verifiable-answer reward, the signal style our GRPO uses.}
+}
+
+@article{hendrycks2021mmlu,
+  title={Measuring Massive Multitask Language Understanding},
+  author={Hendrycks, Dan and Burns, Collin and Basart, Steven and Zou, Andy and Mazeika, Mantas and Song, Dawn and Steinhardt, Jacob},
+  eprint={2009.03300}, archivePrefix={arXiv}, year={2020},
+  annote={The MMLU benchmark used for the RL signal and the logit evaluation.}
+}
+
+@article{qwen2024report,
+  title={Qwen2.5 Technical Report},
+  author={Yang, An and Yang, Baosong and Zhang, Beichen and Hui, Binyuan and Zheng, Bo and Yu, Bowen and Li, Chengyuan and Liu, Dayiheng and Huang, Fei and Wei, Haoran and others},
+  eprint={2412.15115}, archivePrefix={arXiv}, year={2024},
+  annote={Model card for Qwen2.5-1.5B-Instruct, the base model.}
+}
+
+@article{kojima2022zeroshot,
+  title={Large Language Models are Zero-Shot Reasoners},
+  author={Kojima, Takeshi and Gu, Shixiang Shane and Reid, Machel and Matsuo, Yutaka and Iwasawa, Yusuke},
+  eprint={2205.11916}, archivePrefix={arXiv}, year={2022},
+  annote={Base models answer competently when prompted; supports that the answer distribution pre-exists the RL.}
+}

@@ -1,0 +1,16 @@
+metric,value,n
+base_acc,0.378000,1000
+rl_acc,0.382000,1000
+affine_to_rl_acc,0.378000,1000
+affine_to_gold_acc,0.389000,1000
+full_linear_gold_acc,0.404000,1000
+affine_to_rl_R2,0.993341,1000
+affine_temperature_a,0.988844,1000
+elicitation_fraction,2.750000,1000
+rl_minus_base_acc,0.004000,1000
+identity_R2,0.985400,1000
+bias_only_R2,0.993200,1000
+mean_abs_logit_delta,0.180300,1000
+mcnemar_chi2_rl_vs_base,0.450000,1000
+mcnemar_p_rl_vs_base,0.502000,1000
+pred_differ_frac_rl_vs_base,0.027000,1000

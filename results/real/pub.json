@@ -1,0 +1,202 @@
+{
+ "plain": "There is a hope that training an AI only on whether its final answer is correct (not its reasoning) mostly just re-surfaces what the base model already knew, rather than teaching something new. We tested a sharp version: can a single simple rescaling of the base model answer scores reproduce what the RL training did? On a small model with a short RL run, RL barely changed the model at all: it flipped the predicted answer on under 3 percent of questions, with no real accuracy gain and no significant direction, and the tiny change it did make is almost perfectly a uniform rescaling (mostly a nudge toward option A). So there was essentially no gain to recover, and what little changed was a global recalibration, not a new capability. The catch is that the RL run was weak, so this does not settle the question for strong RL. Approve publishes it as an honest negative and methods result; Reject shelves it.",
+ "cost": {
+  "api_equivalent_usd": 79.1945,
+  "sessions": [
+   {
+    "label": "research-prime-driver",
+    "host": "local",
+    "transcript": "/tmp/affine-driver.jsonl",
+    "messages": 338,
+    "usd": 79.1945
+   }
+  ]
+ },
+ "paper_title": "Small-Scale Outcome-Only GRPO Barely Moves the Answer Distribution: A Global-Affine Decomposition and a Paired Null",
+ "headline_claim": "On Qwen2.5-1.5B-Instruct, 120 steps of outcome-only GRPO changed the predicted MMLU answer on only 27/1000 items (2.7%), with no significant direction (McNemar p=0.50) and no accuracy gain (0.378 to 0.382), so the scalar elicitation fraction is ill-defined. The small logit change it did make is near-pure global recalibration: a single affine transform explains 99.3% of the base-to-RL logit variance versus 98.5% with no transform, dominated by a per-option bias toward option A. A bounded null at a weak treatment, not a refutation; the affine-vs-identity-vs-full-linear decomposition is offered as a cheap diagnostic for stronger RL.",
+ "weakest_part": "This is a bounded, weak-treatment null and I do not dress it up. (1) The dominant fact is that the RL barely changed the model (prediction flips on 2.7% of items, McNemar p=0.50), so the strong global-recalibration reading is partly the trivial fact that the model barely moved (identity already explains 98.5% of the logit variance; the affine adds about one point). I downgraded the title from recalibration-not-capability-change to barely-moves-the-answer-distribution for exactly this reason. (2) The supervised affine-to-gold and full-linear ceilings (0.389, 0.404) are fit on the eval labels in cross-validation, so they are NOT a fair head-to-head with unsupervised GRPO; I report them only as recalibration ceilings, not as beating GRPO. (3) The R-squared and per-option-shift numbers are point estimates without CIs (bootstrapping them needs per-resample refits); the paired McNemar test is the uncertainty-aware backbone of the no-change claim. (4) Weak treatment means low power: 120 GRPO steps on a 1.5B model; a regime where outcome-only RL transforms reasoning is the test that matters. (5) Four-option MMLU logits at one forced-answer position, not generative reasoning; one model, size, and reward. The reviewer panel lean-rejected the original title and the supervised-vs-unsupervised comparison; I added the paired test and reframed accordingly.",
+ "gate_report": {
+  "project_dir": "/home/ephra/projects/rl-affine-elicit",
+  "generated_at": "2026-06-24T21:32:51+00:00",
+  "checks": [
+   {
+    "name": "artifacts",
+    "status": "warn",
+    "detail": "required present; recommended absent: analysis_points.csv, analysis_tests.csv"
+   },
+   {
+    "name": "metric_consistency",
+    "status": "warn",
+    "detail": "[generic parser] all primary values traced; p/CI values not all found (papers round or omit them): ci_bound[4].ci=0.348 not in paper.md; ci_bound[5].ci=0.408 not in paper.md; ci_bound[6].ci=0.359 not in paper.md; ci_bound[8].ci=0.373 not in paper.md; ci_bound[9].ci=0.434 not in paper.md"
+   },
+   {
+    "name": "recompute",
+    "status": "pass",
+    "detail": "recompute.py output is identical to analysis_summary.txt (whitespace-normalized) \u2014 every number independently reproduced"
+   },
+   {
+    "name": "csv_traceability",
+    "status": "pass",
+    "detail": "6 metric(s) trace to 2 documented data file(s) with complete sidecars"
+   },
+   {
+    "name": "eval_order",
+    "status": "pass",
+    "detail": "eval_order present and filled in: eval_points.jsonl"
+   },
+   {
+    "name": "citations",
+    "status": "pass",
+    "detail": "16/16 eprints resolve, titles match"
+   },
+   {
+    "name": "reference_count",
+    "status": "pass",
+    "detail": "16 references (distinct keys cited in the draft and present in the bib)"
+   },
+   {
+    "name": "device_scrub",
+    "status": "pass",
+    "detail": "no fleet device names in paper.md/paper.tex"
+   },
+   {
+    "name": "figures",
+    "status": "pass",
+    "detail": "4 figures referenced in paper.md, all on disk with CSV + description sidecars"
+   },
+   {
+    "name": "tex_compiles",
+    "status": "skipped",
+    "detail": "no drafts/paper.tex"
+   },
+   {
+    "name": "style",
+    "status": "pass",
+    "detail": "no em dashes, double hyphens, or bullets"
+   }
+  ],
+  "overall": "pass",
+  "not_checked": [
+   "statistical methodology (test choice, assumptions, multiple comparisons)",
+   "claim/evidence fit \u2014 whether the prose claims more than the numbers support",
+   "novelty against the literature",
+   "code correctness beyond the recompute hook"
+  ]
+ },
+ "reviewer_panel": {
+  "project_dir": "/home/ephra/projects/rl-affine-elicit",
+  "draft": "drafts/paper.md",
+  "generated_at": "2026-06-24T18:17:20+00:00",
+  "cli": "claudius",
+  "model": "cli-default",
+  "prompt_version": "b8ba148a6536",
+  "advisory": true,
+  "passes": [
+   {
+    "lens": "design_validity",
+    "ok": true,
+    "overall_verdict": "I would not fight for acceptance: the headline mechanistic claim is an artifact of a near-null treatment under a diagnostic whose power is never demonstrated, and the most impressive supporting comparison (a static recalibration 'beating' GRPO) is supervised-on-the-eval-gold versus unsupervised, an apples-to-oranges that must be fixed before any conclusion stands.",
+    "n_findings": 3
+   },
+   {
+    "lens": "measurement",
+    "ok": true,
+    "overall_verdict": "Lean reject as written: the headline that survives the collapse of the elicitation fraction \u2014 that a static recalibration of base (+0.011) 'already exceeds' GRPO (+0.004) and that GRPO is '99.3% global' \u2014 rests on differences that are smaller than the noise the paper itself uses to dismiss GRPO, with no paired test and no uncertainty on the R2/per-option decomposition; the one thing that most needs fixing is a paired (McNemar) analysis on the per-example predictions plus CIs on every R2 and per-option-shift number.",
+    "n_findings": 4
+   },
+   {
+    "lens": "claims",
+    "ok": true,
+    "overall_verdict": "Lean reject as written: the honest core (no accuracy gain to recover) is fine, but the title-level claim that GRPO is 'a global recalibration, not a capability change' is not earned by the data and must be either backed with a base-to-RL ceiling fit or downgraded to 'the model barely changed.'",
+    "n_findings": 4
+   }
+  ],
+  "findings": [
+   {
+    "lens": "design_validity",
+    "severity": "high",
+    "claim_attacked": "a global affine transform explains 99.3 percent of the RL option-logit variance ... versus 98.5 percent with no transform, so GRPO's small effect is almost entirely a per-option bias shift ... rather than an input-dependent capability change, with no meaningful input-dependent component",
+    "why": "The diagnostic has no demonstrated power, so high affine R-squared cannot support the 'global, not input-dependent' conclusion. The identity (no transform) already explains 98.5 percent, meaning only 1.5 percent of the RL-logit variance is the part GRPO changed at all; the affine grabs 0.8 of that 1.5, leaving 0.7 percent residual. Any genuine input-dependent component of GRPO's update would live entirely inside that ~0.7 percent residual, which is at the floor of estimability for a change whose mean absolute logit delta is 0.180. The materials never show the affine R-squared would be meaningfully LOWER if a real input-dependent change were present, so R-squared 0.993 is evidence the change is small, not evidence it is global. The authors concede the treatment was weak (Limitation 1: 'partly the trivial fact that the model barely changed') but then still assert 'no meaningful input-dependent component' in both Discussion and Conclusion; that is absence-of-evidence from a near-zero-power test reported as evidence-of-absence. The hedge does not cover the inference it is attached to.",
+    "suggested_fix": "Add a positive control and a null control. Positive: apply the same affine-vs-identity-vs-full-linear decomposition to a checkpoint pair with a KNOWN input-dependent change (e.g. the strong-RL regime cited as guo2025deepseekr1, or a synthetic logit edit that is input-dependent by construction) and show affine R-squared drops materially; without this the diagnostic is uncalibrated. Null: permute which item each RL logit row pairs with and recompute affine R-squared; if it stays near 0.99 the high R-squared is just base-approximately-equals-RL and carries no 'globalness' information. Finally, regress the post-affine residual on item/option features (or test it for structure) to substantiate 'no meaningful input-dependent component' rather than asserting it."
+   },
+   {
+    "lens": "design_validity",
+    "severity": "high",
+    "claim_attacked": "A global affine fit toward correctness recovers a +0.0110 accuracy lift that already exceeds GRPO's own +0.0040 ... Whatever little GRPO achieved is trivially matched by a static recalibration of the base model.",
+    "why": "This comparison is apples-to-oranges in the variable that matters: the affine-to-gold and full-linear maps are SUPERVISED on the MMLU eval set's gold labels (fit by minimizing cross-entropy toward gold in 5-fold OOF per the Method and the curve.csv.md sidecar), whereas GRPO never saw these 1000 items' labels. A per-option bias fit toward gold directly absorbs the eval set's answer-key marginal: if the gold position distribution over A/B/C/D is not uniform, the bias term gains accuracy purely by matching that prior, which 5-fold OOF does NOT prevent (OOF removes per-item leakage, not marginal-label leakage, since every fold shares the same population prior). So 'a static recalibration beats GRPO' conflates 'had access to the target-distribution label prior' with 'recovers a capability,' and the +0.011-vs-+0.004 ranking is uninformative about elicitation. The prose ('trivially matched by a static recalibration') papers over the supervision asymmetry entirely.",
+    "suggested_fix": "Report the empirical gold-label frequencies across the four option positions for this 1000-item eval slice and the accuracy of a pure-prior predictor (always pick the most frequent gold position). Then either (a) evaluate the gold-fit affine on a held-out MMLU split whose gold marginal differs from the fit split, or (b) re-balance the eval set to a uniform gold marginal and recompute affine_to_gold_acc; if the +0.011 lift collapses, it was prior-fitting, not recalibration. At minimum, restate the comparison as supervised-on-eval vs unsupervised so the reader is not told GRPO is 'beaten' by a transform that saw the answer key."
+   },
+   {
+    "lens": "measurement",
+    "severity": "high",
+    "claim_attacked": "a global affine transform of the base logits fit toward correctness reaches 0.3890, a +0.0110 lift over base that already exceeds GRPO's own +0.0040 ... a full linear map reaches 0.4040 (+0.0260). Whatever little GRPO achieved is trivially matched by a static recalibration of the base model.",
+    "why": "The paper applies two incompatible significance standards to effects of the same magnitude class. GRPO's +0.0040 is correctly called 'within noise' because base (CI 0.3490-0.4090) and RL (0.3520-0.4130) CIs coincide. But every other bar in Figure 1 sits inside base's CI too: affine-to-gold 0.3890 (CI 0.3590-0.4200), full-linear 0.4040 (CI 0.3730-0.4340) \u2014 base's point estimate 0.378 lies inside all four other intervals and all five intervals mutually overlap. So the surviving constructive claim ('exceeds GRPO's own', 'trivially matched', the +0.026 'ceiling') narrates an ordering among five bars none of which is separated from the others. No paired test is reported even though eval_points.jsonl contains per-example pred/gold for every section, which is exactly what a McNemar test needs. +0.011 is +11 net correct of 1000; whether that clears noise depends on the discordant-pair count, which is never reported.",
+    "suggested_fix": "Compute paired McNemar tests (or bootstrap the paired accuracy differences over the matched per-example predictions) for affine-to-gold vs base, full-linear vs base, and affine-to-gold vs RL; report each difference with its paired CI and the discordant-pair counts. If affine-to-gold vs base is not significant, retract 'exceeds GRPO's own' and 'trivially matched' and state that no transform in Figure 1 separates from base on this eval."
+   },
+   {
+    "lens": "measurement",
+    "severity": "high",
+    "claim_attacked": "A global affine transform explains 99.3 percent of the RL option-logit variance ... the base logits already explain 98.5 percent with no transform at all ... GRPO's effect on the answer logits is tiny and almost perfectly global.",
+    "why": "The R2 metric is saturated by the null treatment, so it cannot discriminate the conclusion it is used to support. identity_R2 = 0.985 means base and RL logits are nearly the same vector (temperature 0.989, mean abs delta 0.18); when the change to be explained is essentially zero, both 'no transform' and 'global affine' return R2 near 1 by construction, and 'global recalibration' and 'no change at all' are observationally identical under this statistic. The decomposition 0.985 -> 0.993 -> 0.993 partitions roughly 1.5 percent of residual variance with no CIs on any increment. The paper's limitation 1 concedes the treatment 'barely changed' the model, but the mitigation is inadequate: the mechanistic result is still promoted as 'the robust one' in the abstract, results, and conclusion. The conceded flaw contaminates the entire mechanistic headline \u2014 you cannot establish 'GRPO acts as a global recalibration' from a treatment statistically indistinguishable from no treatment; the defensible statement is only 'GRPO produced no measurable logit change, and a near-zero change is trivially global.'",
+    "suggested_fix": "Bootstrap CIs on identity_R2, bias_only_R2, and full-affine R2 over resampled eval items and show the increments (0.985->0.993, 0.993->0.993) exceed sampling noise; alternatively report the analysis on a treatment that moves accuracy outside base's CI, since the decomposition only 'has teeth' there (as limitation 1 admits). Reframe the abstract/conclusion so the mechanistic claim is explicitly conditional on a non-null treatment."
+   },
+   {
+    "lens": "claims",
+    "severity": "high",
+    "claim_attacked": "GRPO's effect on the logits is tiny and almost perfectly global ... a per-option bias shift rather than any input-dependent restructuring ... with no meaningful input-dependent component (title: 'Global Logit Recalibration, Not a Capability Change').",
+    "why": "The R-squared decomposition measures that the change is SMALL, not that it is GLOBAL. identity_R2 is already 0.9854 with no transform at all, and mean_abs_logit_delta is only 0.180; any tiny base-to-RL change, global or input-dependent, leaves identity R-squared near 1. The affine adds 0.008 of variance over identity (0.9854 -> 0.9933) and 0.0001 over bias-only (0.9932 -> 0.9933), so temperature 0.989 does literally no work. Crucially, to claim the residual 0.7 percent contains 'no meaningful input-dependent component' you must show a richer base-to-RL map cannot explain it, but the only full linear map you fit (full_linear_gold_acc) is fit toward GOLD, not toward RL. There is no full_linear_to_rl_R2 anywhere in curve.csv. So the headline negative ('not a capability change' / 'no input-dependent restructuring') rests on an uncomputed comparison: an input-dependent component of exactly the residual size would be invisible to the affine-vs-identity contrast you actually report.",
+    "suggested_fix": "Fit the same unconstrained 4x4 linear (and ideally a small MLP) map from base option logits to RL option logits, OOF, and report its R-squared as a ceiling next to affine_to_rl_R2 = 0.9933. If the full map does not beat 0.9933, the 'global, not input-dependent' claim is earned; if it does, the gap IS the input-dependent component you assert is absent, and the title must change. Absent that fit, retitle to 'GRPO barely moves the answer logits' since 'small' is all the decomposition licenses."
+   },
+   {
+    "lens": "design_validity",
+    "severity": "medium",
+    "claim_attacked": "that shift is a near-constant upward push on every option, largest on option A (mean +0.271) and smallest on option D (+0.063), the signature of a mild label or position bias",
+    "why": "Softmax/argmax over the four option logits is invariant to a constant added to all four, so the common-mode component of the reported per-option shifts is behaviorally invisible and statistically unidentifiable from the answer distribution. The interpretation 'label or position bias toward A' depends only on the DIFFERENTIAL bias, A minus D is about 0.208, not on the headline +0.271, which is inflated by the common-mode push that every option shares (all four shifts are positive). Reporting +0.271 as the magnitude of the A-bias overstates the identifiable effect by roughly 30 percent and lets a behaviorally-null common-mode shift masquerade as a label-bias signature. The same common-mode component also pads the bias-only R-squared improvement (0.985 to 0.993) without changing any prediction.",
+    "suggested_fix": "Mean-center the per-option delta vector before reporting and interpreting it (report differential biases relative to their mean, e.g. A and D versus the option-mean), since only those drive the answer distribution. Recompute the bias-only vs identity R-squared improvement on mean-centered logits, and verify the 'largest on A' label-bias claim survives once the unidentifiable common-mode shift is removed; report the differential A-minus-D bias as the effect size instead of the raw +0.271."
+   },
+   {
+    "lens": "measurement",
+    "severity": "medium",
+    "claim_attacked": "that shift is a near-constant upward push on every option, largest on option A (mean +0.271) and smallest on option D (+0.063), the signature of a mild label or position bias rather than improved discrimination.",
+    "why": "The per-option shift means (+0.271 for A, +0.063 for D) appear only in prose and Figure 3; figure_delta.csv contains a single number, mean_abs_logit_delta = 0.1803, with no per-option breakdown and no uncertainty. The 'largest on A, smallest on D, label-bias signature' reading requires that A's shift be distinguishable from D's, but no CI, no test, and no per-option sample size is given. With overall mean absolute delta only 0.18 logits and option-level estimates drawn from ~1000 items, the A>D ordering could be sampling noise, and it is the sole evidence for the 'label-bias toward A' interpretation that the abstract and conclusion both feature.",
+    "suggested_fix": "Bootstrap per-option mean-shift CIs and report a test that the A-vs-D (and A-vs-rest) difference exceeds zero; publish the per-option deltas with n and CI in figure_delta.csv. If A is not separable from the other options, drop 'largest on option A' from the abstract and conclusion."
+   },
+   {
+    "lens": "claims",
+    "severity": "medium",
+    "claim_attacked": "A global affine fit toward correctness recovers a +0.0110 accuracy lift that already exceeds GRPO's own +0.0040 ... Whatever little GRPO achieved is trivially matched by a static recalibration of the base model.",
+    "why": "The paper calls +0.0040 'no measurable accuracy gain ... within noise' (CIs 0.349-0.409 base vs 0.352-0.413 RL, near-total overlap), but then treats +0.0110 as a real 'lift' that 'exceeds' it. Both are within the same noise band: affine_to_gold = 0.3890 (CI 0.359-0.420) and full_linear = 0.4040 (CI 0.373-0.434) both have CIs overlapping base 0.378 (0.349-0.409). You cannot simultaneously dismiss +0.0040 as noise and assert +0.0110 'exceeds' it; that is comparing two quantities each indistinguishable from zero and reporting a winner. No paired-difference CI is given for affine_to_gold minus base or minus RL, so 'exceeds' and 'trivially matched' are unsupported.",
+    "suggested_fix": "Report the bootstrap CI of the paired differences (affine_to_gold - base) and (affine_to_gold - rl) on the same 1000 paired items. If those CIs include 0 (they almost certainly do given the marginals), rewrite to 'the affine recovery is also within noise; no transform produces a significant gain,' and delete 'exceeds GRPO's own' and 'trivially matched.'"
+   },
+   {
+    "lens": "claims",
+    "severity": "medium",
+    "claim_attacked": "At this scale outcome-only RL recalibrates rather than rebuilds (and title 'Small-Scale GRPO Acts as a Global Logit Recalibration, Not a Capability Change').",
+    "why": "The conclusion generalizes to 'outcome-only RL' and 'small-scale GRPO' as categories, but the evidence is one run of one reward on one model (Qwen2.5-1.5B-Instruct), 120 GRPO steps, that moved accuracy +0.004 within noise. The limitations concede the treatment was 'weak' and that 'the strong finding that the effect is global is partly the trivial fact that the model barely changed,' and that the regime that matters is untested. That concession guts the title: a negative mechanistic claim ('Not a Capability Change') is exactly what cannot be established from a treatment that produced no change. The hedge is inadequate because the title and conclusion are what get cited, and they assert the general claim the limitations retract.",
+    "suggested_fix": "Scope the title and conclusion to what was run, e.g. 'A weak outcome-only GRPO update (120 steps, +0.004 acc) leaves Qwen2.5-1.5B answer logits essentially unchanged.' Reserve any 'recalibration not rebuilding' language for a treatment that produces a significant accuracy gain, which the paper itself names as the test that matters."
+   },
+   {
+    "lens": "measurement",
+    "severity": "low",
+    "claim_attacked": "The fitted temperature is 0.989 ... identity 0.985, bias-only 0.993, full affine 0.993 (R2 reported as 0.993341, 0.985400, 0.993200; temperature 0.988844 in curve.csv).",
+    "why": "Reported precision exceeds what the procedure can deliver and is inconsistent within the paper. The five accuracies carry 2000-resample bootstrap CIs, but the R2 values (to six decimals), the temperature (0.988844), and the logit deltas carry no uncertainty at all, despite being labeled the 'data of record' for Figures 2-4 in the sidecar. The narrated comparisons 'bias-only 0.993200 vs full affine 0.993341' (delta 0.000141, called 'essentially nothing more') and 'identity 0.985 vs bias 0.993' (called the increment that matters) are presented as ordered facts without any demonstration that either gap is larger than resampling noise on n=1000.",
+    "suggested_fix": "Either report bootstrap CIs for affine_to_rl_R2, identity_R2, bias_only_R2, and affine_temperature_a, or round them to a precision the sample supports (e.g. two decimals) and state explicitly which inter-model R2 gaps are within noise."
+   },
+   {
+    "lens": "claims",
+    "severity": "low",
+    "claim_attacked": "the small movement it made is ... a near-constant upward push on every option, largest on option A (mean +0.271) and smallest on option D (+0.063), the signature of a mild label or position bias.",
+    "why": "The per-option shifts are reported as point estimates with no uncertainty, yet the same materials show the whole accuracy effect is within noise (mean_abs_logit_delta 0.180 is the scale of the entire change). Whether +0.271 on A is reliably distinct from +0.063 on D, or from zero, is untested, so the 'label/position bias' interpretation is asserted on unquantified per-option deltas.",
+    "suggested_fix": "Add bootstrap CIs on each per-option mean shift over the 1000 paired items and test A-vs-D separation; only then call the A-vs-D gap a 'signature' of label bias."
+   }
+  ]
+ },
+ "not_checked": [
+  "a stronger RL treatment that produces a real accuracy gain (the regime where the elicitation fraction is defined)",
+  "bootstrap CIs on the R-squared and per-option logit-shift estimates",
+  "generative (non-multiple-choice) reasoning rather than forced-answer option logits",
+  "larger models and other reward types (math/code verifiable rewards)",
+  "an unsupervised base-to-RL ceiling fit to separate global from barely-changed more sharply",
+  "whether the option-A bias reflects a position/label prior versus content"
+ ]
+}

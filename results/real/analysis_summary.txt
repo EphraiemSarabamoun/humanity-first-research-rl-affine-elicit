@@ -1,0 +1,20 @@
+# Global affine logit transform vs GRPO: a scalar elicitation test
+
+Model: Qwen2.5-1.5B-Instruct base (checkpoint-0) vs outcome-only GRPO (checkpoint-final), MMLU.
+A global affine transform is a single scalar temperature plus a per-option bias on the 4 option logits.
+Bootstrap: 2000 resamples, percentile 95% CI, seed 42. Chance = 0.25.
+
+## Base model: MMLU accuracy (argmax of option logits)
+  accuracy = 0.3780  (95% CI 0.3490-0.4090, n=1000)
+
+## RL model (GRPO): MMLU accuracy
+  accuracy = 0.3820  (95% CI 0.3520-0.4130, n=1000)
+
+## Global affine fit to RL, applied to base: MMLU accuracy
+  accuracy = 0.3780  (95% CI 0.3480-0.4080, n=1000)
+
+## Global affine fit to gold (5-fold OOF): MMLU accuracy
+  accuracy = 0.3890  (95% CI 0.3590-0.4200, n=1000)
+
+## Full linear map fit to gold (5-fold OOF, ceiling): MMLU accuracy
+  accuracy = 0.4040  (95% CI 0.3730-0.4340, n=1000)
